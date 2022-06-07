@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vetmed_app/utils/colors.dart';
+import '../../../utils/colors.dart';
+import '../../widgets/atoms/button-normal.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class LoginPage extends StatelessWidget {
           horizontal: 16,
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Image(
               image: AssetImage(
@@ -25,6 +28,9 @@ class LoginPage extends StatelessWidget {
                   fontSize: 64.0,
                   fontWeight: FontWeight.w600),
             ),
+            SizedBox(
+              height: 8,
+            ),
             Text(
               "Una app para ti y tu mascota",
               style: TextStyle(
@@ -33,12 +39,16 @@ class LoginPage extends StatelessWidget {
                   fontWeight: FontWeight.w400),
             ),
             SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text("Ingresar"),
-                style: raisedButtonStyle,
-              ),
+              height: 48,
+            ),
+            ButtonNormal(
+              color: primaryColor, text: 'Ingresar',
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            ButtonNormal(
+              color: secondaryColor, text: 'Crear cuenta',
             ),
           ],
         ),
