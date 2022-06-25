@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vetmed_app/utils/colors.dart';
 import '../../../utils/colors.dart';
-import '../../widgets/atoms/button-normal.dart';
+import '../../widgets/button-normal.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 16,
         ),
         child: Column(

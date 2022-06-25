@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:vetmed_app/presentation/pages/authentication/Login_Page.dart';
 import 'package:vetmed_app/presentation/pages/authentication/SignUp_Page.dart';
+import 'package:vetmed_app/utils/colors.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
+        scaffoldBackgroundColor: primaryWhite,
       ),
       home: const SingUpPage(),
     );

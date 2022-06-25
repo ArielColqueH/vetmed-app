@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^1.17.1
+  flutter_svg: ^1.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -62,6 +63,7 @@ flutter:
   assets:
     - assets/images/img-veterinary-pet.png
     - assets/images/img-veterinary-pet.svg
+    - assets/images/img-google.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

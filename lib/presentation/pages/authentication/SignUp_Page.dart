@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:vetmed_app/presentation/widgets/atoms/button-back.dart';
+import 'package:vetmed_app/presentation/pages/authentication/widgets/button-logo.dart';
+import 'package:vetmed_app/presentation/pages/authentication/widgets/divider-detail.dart';
+import 'package:vetmed_app/presentation/widgets/button-back.dart';
 import 'package:vetmed_app/utils/colors.dart';
 import '../../../utils/colors.dart';
-import '../../widgets/atoms/button-normal.dart';
-import '../../widgets/atoms/input-normal.dart';
-import '../../widgets/atoms/subtitle.dart';
-import '../../widgets/atoms/title.dart';
+import '../../widgets/button-normal.dart';
+import '../../widgets/input-normal.dart';
+import '../../widgets/subtitle.dart';
+import '../../widgets/title.dart';
 
 class SingUpPage extends StatelessWidget {
   const SingUpPage({Key? key}) : super(key: key);
@@ -21,7 +23,9 @@ class SingUpPage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            ButtonBack(color: secondaryColor,),
+            ButtonBack(
+              color: secondaryColor,
+            ),
             const SizedBox(
               height: 24,
             ),
@@ -68,6 +72,16 @@ class SingUpPage extends StatelessWidget {
               color: primaryColor,
               text: 'Empecemos',
             ),
+            const SizedBox(
+              height: 48,
+            ),
+            const DividerDetail(
+              texto: 'Crea tu cuenta con Google',
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const ButtonLogo(),
           ],
         ),
       ),
