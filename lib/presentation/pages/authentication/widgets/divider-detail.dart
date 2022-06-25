@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../utils/colors.dart';
+import '../../../widgets/two-link-text.dart';
 
 class DividerDetail extends StatelessWidget {
   final String texto;
@@ -18,7 +19,15 @@ class DividerDetail extends StatelessWidget {
           ),
         ),
       ),
-      Text(texto),
+      Text(
+        texto,
+        style: TextStyle(
+          fontSize: 14.0,
+          color: terciaryColor,
+          fontWeight: FontWeight.w400,
+          height: 1.5,
+        ),
+      ),
       Expanded(
         child: Container(
           margin: const EdgeInsets.only(left: 20.0, right: 20),
@@ -28,6 +37,7 @@ class DividerDetail extends StatelessWidget {
           ),
         ),
       ),
+
     ]);
   }
 }

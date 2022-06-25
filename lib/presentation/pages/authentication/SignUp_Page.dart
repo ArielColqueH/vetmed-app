@@ -8,6 +8,7 @@ import '../../widgets/button-normal.dart';
 import '../../widgets/input-normal.dart';
 import '../../widgets/subtitle.dart';
 import '../../widgets/title.dart';
+import '../../widgets/two-link-text.dart';
 
 class SingUpPage extends StatelessWidget {
   const SingUpPage({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class SingUpPage extends StatelessWidget {
               color: secondaryColor,
             ),
             const SizedBox(
-              height: 24,
+              height: 16,
             ),
             const TitleScreen(
               texto: 'Crear cuenta',
@@ -66,14 +67,14 @@ class SingUpPage extends StatelessWidget {
               height: 8,
             ),
             const SizedBox(
-              height: 48,
+              height: 32,
             ),
             ButtonNormal(
               color: primaryColor,
               text: 'Empecemos',
             ),
             const SizedBox(
-              height: 48,
+              height: 32,
             ),
             const DividerDetail(
               texto: 'Crea tu cuenta con Google',
@@ -82,6 +83,13 @@ class SingUpPage extends StatelessWidget {
               height: 16,
             ),
             const ButtonLogo(),
+            const SizedBox(
+              height: 32,
+            ),
+            const TwoLinkText(
+              normalText: '¿Ya tienes cuenta? ',
+              linkText: 'Ingresa por aqui',
+            ),
           ],
         ),
       ),
