@@ -3,8 +3,8 @@ import '../../../utils/main_utils.dart';
 import '../../widgets/main_widgets.dart';
 import '../authentication/widgets/auth_widgets.dart';
 
-class SingUpPage extends StatelessWidget {
-  const SingUpPage({Key? key}) : super(key: key);
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +66,7 @@ class SingUpPage extends StatelessWidget {
             ButtonNormal(
               color: primaryColor,
               text: 'Empecemos',
+              routePage: 'HomePage',
             ),
             const SizedBox(
               height: 32,

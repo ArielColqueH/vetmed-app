@@ -4,6 +4,7 @@ import '../../widgets/main_widgets.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,13 +41,17 @@ class WelcomePage extends StatelessWidget {
               height: 48,
             ),
             ButtonNormal(
-              color: primaryColor, text: 'Ingresar',
+              color: primaryColor,
+              text: 'Ingresar',
+              routePage: 'LoginPage',
             ),
             SizedBox(
               height: 24,
             ),
             ButtonNormal(
-              color: secondaryColor, text: 'Crear cuenta',
+              color: secondaryColor,
+              text: 'Crear cuenta',
+              routePage: 'SignUpPage',
             ),
           ],
         ),

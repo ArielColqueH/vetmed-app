@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../utils/main_utils.dart';
 import '../../widgets/main_widgets.dart';
 import '../authentication/widgets/auth_widgets.dart';
+
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -56,6 +57,7 @@ class LoginPage extends StatelessWidget {
             ButtonNormal(
               color: primaryColor,
               text: 'Ingresar',
+              routePage: 'HomePage',
             ),
             const SizedBox(
               height: 32,

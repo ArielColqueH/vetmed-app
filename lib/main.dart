@@ -4,6 +4,7 @@ import 'package:vetmed_app/presentation/pages/Home/Home_Page.dart';
 import 'package:vetmed_app/presentation/pages/authentication/Login_Page.dart';
 import 'package:vetmed_app/presentation/pages/authentication/Welcome_Page.dart';
 import 'package:vetmed_app/presentation/pages/authentication/SignUp_Page.dart';
+import 'package:vetmed_app/presentation/router/app_router.dart';
 import 'package:vetmed_app/utils/colors.dart';
 import 'firebase_options.dart';
 
@@ -15,18 +16,25 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AppRouter _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: primaryWhite,
       ),
-      home: const HomePage(),
+      onGenerateRoute: _appRouter.onGenerateRoute,
     );
   }
 }
@@ -34,12 +42,14 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
   void _incrementCounter() {
     setState(() {
       _counter++;
