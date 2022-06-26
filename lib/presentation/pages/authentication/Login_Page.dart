@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vetmed_app/presentation/pages/authentication/widgets/button-logo.dart';
-import 'package:vetmed_app/presentation/pages/authentication/widgets/divider-detail.dart';
-import 'package:vetmed_app/presentation/widgets/button-back.dart';
-import 'package:vetmed_app/utils/colors.dart';
-import '../../../utils/colors.dart';
-import '../../widgets/button-normal.dart';
-import '../../widgets/input-normal.dart';
-import '../../widgets/subtitle.dart';
-import '../../widgets/title.dart';
-import '../../widgets/two-link-text.dart';
-
+import '../../../utils/main_utils.dart';
+import '../../widgets/main_widgets.dart';
+import '../authentication/widgets/auth_widgets.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -31,7 +23,7 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            const TitleScreen(
+            const TitleText(
               texto: 'Ingresar',
             ),
             const SizedBox(

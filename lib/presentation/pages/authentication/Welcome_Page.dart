@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vetmed_app/utils/colors.dart';
-import '../../../utils/colors.dart';
-import '../../widgets/button-normal.dart';
+import '../../../utils/main_utils.dart';
+import '../../widgets/main_widgets.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);

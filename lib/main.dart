@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:vetmed_app/presentation/pages/Home/Home_Page.dart';
 import 'package:vetmed_app/presentation/pages/authentication/Login_Page.dart';
 import 'package:vetmed_app/presentation/pages/authentication/Welcome_Page.dart';
 import 'package:vetmed_app/presentation/pages/authentication/SignUp_Page.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: primaryWhite,
       ),
-      home: const LoginPage(),
+      home: const HomePage(),
     );
   }
 }
