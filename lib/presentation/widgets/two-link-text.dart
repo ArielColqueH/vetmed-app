@@ -34,7 +34,7 @@ class TwoLinkText extends StatelessWidget {
             style: TextStyle(
               fontSize: 16.0,
               color: primaryColor,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w400,
               height: 1.2727,
             ),
           ),

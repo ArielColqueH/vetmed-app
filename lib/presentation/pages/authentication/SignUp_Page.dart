@@ -17,6 +17,7 @@ class SingUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _textController = TextEditingController();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
