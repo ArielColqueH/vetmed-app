@@ -50,8 +50,31 @@ class HomePage extends StatelessWidget {
                   'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
               clinicAttention: 200.0,
             ),
+            const SizedBox(
+              height: 24,
+            ),
             const TitleText(
               texto: 'Veterinarios Especialistas',
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Row(
+              children: [
+                DoctorItem(
+                  doctorImage:
+                      'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                  doctorName: 'Pepito Perez',
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                DoctorItem(
+                  doctorImage:
+                      'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                  doctorName: 'Pepito Perez',
+                ),
+              ],
             ),
           ],
         ),
