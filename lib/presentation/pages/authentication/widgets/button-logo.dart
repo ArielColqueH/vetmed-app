@@ -3,7 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../utils/colors.dart';
 
 class ButtonLogo extends StatelessWidget {
-  const ButtonLogo({Key? key}) : super(key: key);
+  final VoidCallback callback;
+  const ButtonLogo({Key? key, required this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class ButtonLogo extends StatelessWidget {
       alignment: Alignment.center,
       child: RawMaterialButton(
         fillColor: Colors.white,
-        onPressed: () {},
+        onPressed: callback,
         elevation: 2.0,
         constraints: const BoxConstraints(
           minWidth: 0,
