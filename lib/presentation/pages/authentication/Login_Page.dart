@@ -75,9 +75,11 @@ class LoginPage extends StatelessWidget {
               alignment: Alignment.center,
               child: RawMaterialButton(
                 fillColor: Colors.white,
-                onPressed: (){
-                  final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
+                onPressed: () {
+                  final provider =
+                      Provider.of<GoogleSignInProvider>(context, listen: false);
                   provider.googleLogin();
+                  Navigator.of(context).pushNamed('/HomePage');
                 },
                 elevation: 2.0,
                 constraints: const BoxConstraints(
@@ -106,6 +108,4 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-void signInWithGoogle() {
-
-}
+void signInWithGoogle() {}
