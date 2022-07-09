@@ -5,3 +5,4 @@ export 'reservation-card.dart';
 export 'button-whatsapp.dart';
 export 'clinic_info_card.dart';
 export 'clinic_info_card_dollar.dart';
+export 'specialty_option.dart';
