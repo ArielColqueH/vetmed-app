@@ -5,6 +5,7 @@ import 'package:vetmed_app/presentation/pages/authentication/SignUp_Page.dart';
 import 'package:vetmed_app/presentation/pages/authentication/Welcome_Page.dart';
 import 'package:vetmed_app/presentation/pages/home/ClinicLocation_Page.dart';
 import 'package:vetmed_app/presentation/pages/home/ClinicProfile_Page.dart';
+import 'package:vetmed_app/presentation/pages/home/DoctorProfile_Page.dart';
 
 import '../pages/authentication/Login_Page.dart';
 
@@ -24,7 +25,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HomePage());
         break;
       case '/DoctorProfilePage':
-        return MaterialPageRoute(builder: (_) => const HomePage());
+        return MaterialPageRoute(builder: (_) => const DoctorProfilePage());
         break;
       case '/ClinicProfilePage':
         return MaterialPageRoute(builder: (_) => const ClinicProfilePage());

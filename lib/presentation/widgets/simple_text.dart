@@ -15,7 +15,7 @@ class SimpleText extends StatelessWidget {
         texto,
         style: TextStyle(
           fontSize: 14.0,
-          color: primaryBlack,
+          color: terciaryColor,
           fontWeight: FontWeight.normal,
           height: 1.4285,
         ),
