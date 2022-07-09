@@ -18,6 +18,7 @@ class TitleText extends StatelessWidget {
           color: primaryBlack,
           fontWeight: FontWeight.w700,
           height: 1.2727,
+          fontFamily: 'Nunito',
         ),
       ),
     );

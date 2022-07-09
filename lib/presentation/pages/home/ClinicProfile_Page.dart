@@ -32,20 +32,6 @@ class ClinicProfilePage extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
-                    top: 40,
-                    left: 16,
-                    child: Row(
-                      children: [
-                        ButtonBack(
-                          color: Colors.white,
-                          onPressed: () {
-                            Navigator.pop(context, false);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
                     left: 0,
                     right: 0,
                     child: Container(
@@ -67,7 +53,7 @@ class ClinicProfilePage extends StatelessWidget {
                     top: 200,
                     child: Container(
                       width: size.width,
-                      height: 600,
+                      height: 220,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
@@ -128,12 +114,50 @@ class ClinicProfilePage extends StatelessWidget {
                             const SizedBox(
                               height: 16,
                             ),
-                            const SizedBox(
-                              height: 24,
-                            ),
                           ],
                         ),
                       ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 420,
+                    child: Container(
+                      color: primaryWhite,
+                      width: size.width,
+                      height: 400,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const TitleText(
+                              texto: 'Información de la clínica',
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 40,
+                    left: 16,
+                    child: Row(
+                      children: [
+                        ButtonBack(
+                          color: Colors.white,
+                          onPressed: () {
+                            Navigator.pop(context, false);
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ],
