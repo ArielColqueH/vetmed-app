@@ -8,3 +8,4 @@ var secondaryColor = const Color(0xff272343);
 var backgroundWhite = const Color(0xffF9F6F4);
 var terciaryColor = const Color(0xff667080);
 var disabledColor = const Color(0xffDDDDDD);
+var whatsappColor = const Color(0xff25D366);

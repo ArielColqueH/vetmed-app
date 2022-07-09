@@ -19,7 +19,8 @@ class SignUpPage extends StatelessWidget {
         child: Column(
           children: [
             ButtonBack(
-              color: secondaryColor,
+              color: secondaryColor, onPressed: () {   Navigator.pop(context, false); },
+
             ),
             const SizedBox(
               height: 16,

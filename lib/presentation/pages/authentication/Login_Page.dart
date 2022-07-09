@@ -23,6 +23,9 @@ class LoginPage extends StatelessWidget {
           children: [
             ButtonBack(
               color: secondaryColor,
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
             ),
             const SizedBox(
               height: 16,

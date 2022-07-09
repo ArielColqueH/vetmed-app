@@ -2,16 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vetmed_app/presentation/components/bottomnav.dart';
-import 'package:vetmed_app/presentation/pages/authentication/SignUp_Page.dart';
 import 'package:vetmed_app/provider/google_sign_in.dart';
 
-import '../../../utils/main_utils.dart';
 import '../../widgets/main_widgets.dart';
 import '../authentication/Login_Page.dart';
 import '../home/widgets/home_widgets.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class DoctorProfilePage extends StatelessWidget {
+  const DoctorProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +45,7 @@ class HomePage extends StatelessWidget {
                   ),
                   const Subtitle(
                     texto:
-                        'Cuidar y amar a nuestras mascotas es nuestra responsabilidad',
+                    'Cuidar y amar a nuestras mascotas es nuestra responsabilidad',
                   ),
                   const SizedBox(
                     height: 24,
@@ -64,11 +62,12 @@ class HomePage extends StatelessWidget {
                     clinicName: 'Clínica Angeles y Guardianes',
                     clinicPricing: 3,
                     clinicImage:
-                        'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                    'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
                     clinicAttention: 200.0,
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/ClinicProfilePage');
+                      Navigator.of(context).pushNamed('/ProfileCliniPage');
                     },
+
                   ),
                   const SizedBox(
                     height: 24,
@@ -83,7 +82,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       DoctorItem(
                         doctorImage:
-                            'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                        'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
                         doctorName: 'Pepito Perez',
                       ),
                       const SizedBox(
@@ -91,11 +90,12 @@ class HomePage extends StatelessWidget {
                       ),
                       DoctorItem(
                         doctorImage:
-                            'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                        'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
                         doctorName: 'Pepito Perez',
                       ),
                     ],
                   ),
+
                   ElevatedButton(
                     onPressed: () {
                       final provider = Provider.of<GoogleSignInProvider>(

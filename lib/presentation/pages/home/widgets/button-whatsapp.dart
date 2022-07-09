@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/colors.dart';
+import '../../../../utils/colors.dart';
 
-class ButtonBack extends StatelessWidget {
-  final Color color;
+
+
+class ButtonWhatsapp extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const ButtonBack({Key? key, required this.color, required this.onPressed})
-      : super(key: key);
+  const ButtonWhatsapp({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +18,13 @@ class ButtonBack extends StatelessWidget {
         constraints: const BoxConstraints(
           minWidth: 0,
         ),
-        fillColor: color,
-        padding: const EdgeInsets.all(10.0),
+        fillColor: whatsappColor,
+        padding: const EdgeInsets.all(5.0),
         shape: const CircleBorder(),
         child: Icon(
-          Icons.arrow_back_ios_sharp,
-          size: 20.0,
-          color: color == primaryWhite ? primaryBlack : primaryWhite,
+          Icons.whatsapp,
+          size: 25.0,
+          color: primaryWhite,
         ),
       ),
     );
