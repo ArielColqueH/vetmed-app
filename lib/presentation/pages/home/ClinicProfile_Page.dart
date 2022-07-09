@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:vetmed_app/utils/colors.dart';
 import '../../widgets/main_widgets.dart';
 import '../authentication/Login_Page.dart';
@@ -132,7 +131,7 @@ class ClinicProfilePage extends StatelessWidget {
                         child: Column(
                           children: [
                             const SizedBox(
-                              height: 16,
+                              height: 24,
                             ),
                             const TitleText(
                               texto: 'Información de la clínica',
@@ -140,7 +139,16 @@ class ClinicProfilePage extends StatelessWidget {
                             const SizedBox(
                               height: 16,
                             ),
-
+                            const SimpleText(
+                              texto:
+                                  'La veterinaria cuenta con un equipamiento moderno y profesionales altamente capacitados, para conseguir un diagnóstico óptimo y un tratamiento efectivo de los animales, conversamos detenidamente con el dueño y nos tomamos el tiempo necesario para investigar a fondo con diferentes exámenes y llegar a un correcto diagnostico',
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            const TitleText(
+                              texto: 'Especialidades en la clínica',
+                            ),
                           ],
                         ),
                       ),
