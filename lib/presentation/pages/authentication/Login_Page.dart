@@ -63,7 +63,9 @@ class LoginPage extends StatelessWidget {
             ButtonNormal(
               color: primaryColor,
               text: 'Ingresar',
-              routePage: 'HomePage',
+              onPressed: () {
+                Navigator.of(context).pushNamed('/HomePage');
+              },
             ),
             const SizedBox(
               height: 32,

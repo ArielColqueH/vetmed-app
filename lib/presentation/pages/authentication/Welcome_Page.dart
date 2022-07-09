@@ -43,7 +43,9 @@ class WelcomePage extends StatelessWidget {
             ButtonNormal(
               color: primaryColor,
               text: 'Ingresar',
-              routePage: 'LoginPage',
+              onPressed: () {
+                Navigator.of(context).pushNamed('/LoginPage');
+              },
             ),
             SizedBox(
               height: 24,
@@ -51,7 +53,9 @@ class WelcomePage extends StatelessWidget {
             ButtonNormal(
               color: secondaryColor,
               text: 'Crear cuenta',
-              routePage: 'SignUpPage',
+              onPressed: () {
+                Navigator.of(context).pushNamed('/SignUpPage');
+              },
             ),
           ],
         ),

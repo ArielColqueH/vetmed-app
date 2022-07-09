@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vetmed_app/utils/colors.dart';
 import '../../widgets/main_widgets.dart';
 import '../authentication/Login_Page.dart';
@@ -129,7 +130,7 @@ class ClinicProfilePage extends StatelessWidget {
                   Container(
                     color: primaryWhite,
                     width: size.width,
-                    height: 500,
+                    height: 520,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
@@ -186,6 +187,17 @@ class ClinicProfilePage extends StatelessWidget {
                           TitleText(
                             texto: 'Ubicación de la clínica',
                           ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          ButtonNormal(
+                            color: primaryColor,
+                            text: 'Ir a clínica',
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed('/ClinicLocationPage');
+                            },
+                          )
                         ],
                       ),
                     ),

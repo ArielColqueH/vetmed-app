@@ -19,8 +19,10 @@ class SignUpPage extends StatelessWidget {
         child: Column(
           children: [
             ButtonBack(
-              color: secondaryColor, onPressed: () {   Navigator.pop(context, false); },
-
+              color: secondaryColor,
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
             ),
             const SizedBox(
               height: 16,
@@ -67,7 +69,9 @@ class SignUpPage extends StatelessWidget {
             ButtonNormal(
               color: primaryColor,
               text: 'Empecemos',
-              routePage: 'HomePage',
+              onPressed: () {
+                Navigator.of(context).pushNamed('/HomePage');
+              },
             ),
             const SizedBox(
               height: 32,
