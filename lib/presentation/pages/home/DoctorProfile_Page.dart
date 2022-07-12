@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../../domain/entities/VeterinaryDoctor.dart';
 import '../../../utils/colors.dart';
 import '../../widgets/main_widgets.dart';
 import '../authentication/Login_Page.dart';
@@ -15,6 +17,7 @@ class DoctorProfilePage extends StatelessWidget {
     final String? name = user?.displayName;
     final String? email = user?.email;
     final String? photoUrl = user?.photoURL;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: StreamBuilder(
@@ -115,7 +118,7 @@ class DoctorProfilePage extends StatelessWidget {
                   Container(
                     color: primaryWhite,
                     width: size.width,
-                    height: 520,
+                    height: 370,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,

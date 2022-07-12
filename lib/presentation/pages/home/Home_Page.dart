@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,6 +6,7 @@ import 'package:vetmed_app/presentation/components/bottomnav.dart';
 import 'package:vetmed_app/presentation/pages/authentication/SignUp_Page.dart';
 import 'package:vetmed_app/provider/google_sign_in.dart';
 
+import '../../../domain/entities/VeterinaryDoctor.dart';
 import '../../../utils/main_utils.dart';
 import '../../widgets/main_widgets.dart';
 import '../authentication/Login_Page.dart';
@@ -12,6 +14,12 @@ import '../home/widgets/home_widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  Stream<List<VeterinaryDoctor>> readVeterinaries() =>
+      FirebaseFirestore.instance.collection('VeterinaryDoctor').snapshots().map(
+          (snapshot) => snapshot.docs
+              .map((doc) => VeterinaryDoctor.fromJson(doc.data()))
+              .toList());
 
   @override
   Widget build(BuildContext context) {
@@ -79,20 +87,30 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  Row(
-                    children: [
-                      DoctorItem(
-                        doctorImage:
-                            'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-                        doctorName: 'Pepito Perez',
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/DoctorProfilePage');
-                        },
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                    ],
+                  StreamBuilder<List<VeterinaryDoctor>>(
+                    stream: readVeterinaries(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final veterinaryDoctorList = snapshot.data!;
+                        print('numero: ${veterinaryDoctorList[0].name}');
+                        return ListView.builder(
+                          itemCount: veterinaryDoctorList.length,
+                          itemBuilder: (context, index) => DoctorItem(
+                            doctorImage:
+                                '${veterinaryDoctorList[index].veterinaryDoctorPhoto}',
+                            doctorName: '${veterinaryDoctorList[index].name}',
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed('/DoctorProfilePage');
+                            },
+                          ),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
                   ),
                   ElevatedButton(
                     onPressed: () {
