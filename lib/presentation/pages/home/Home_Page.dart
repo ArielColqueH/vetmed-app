@@ -87,30 +87,33 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  StreamBuilder<List<VeterinaryDoctor>>(
-                    stream: readVeterinaries(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final veterinaryDoctorList = snapshot.data!;
-                        print('numero: ${veterinaryDoctorList[0].name}');
-                        return ListView.builder(
-                          itemCount: veterinaryDoctorList.length,
-                          itemBuilder: (context, index) => DoctorItem(
-                            doctorImage:
-                                '${veterinaryDoctorList[index].veterinaryDoctorPhoto}',
-                            doctorName: '${veterinaryDoctorList[index].name}',
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .pushNamed('/DoctorProfilePage');
-                            },
-                          ),
-                        );
-                      } else {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
+                  Expanded(
+                    child: StreamBuilder<List<VeterinaryDoctor>>(
+                      stream: readVeterinaries(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final veterinaryDoctorList = snapshot.data!;
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: veterinaryDoctorList.length,
+                            itemBuilder: (context, index) => DoctorItem(
+                              doctorImage:
+                                  '${veterinaryDoctorList[index].veterinaryDoctorPhoto}',
+                              doctorName: '${veterinaryDoctorList[index].name} ${veterinaryDoctorList[index].lastname}',
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed('/DoctorProfilePage');
+                              },
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {

@@ -53,6 +53,6 @@ class VeterinaryDoctor {
         timeOfExperience: (json['TimeOfExperience'] as Timestamp).toDate(),
         doctorSpeciality: json['DoctorSpeciality'],
         biography: json['Biography'],
-        veterinaryDoctorPhoto: json['VeterinaryDoctorPhoto'],
+        veterinaryDoctorPhoto: json['VeterinaryPhoto'],
       );
 }
