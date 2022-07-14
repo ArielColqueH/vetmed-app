@@ -6,6 +6,7 @@ import 'package:vetmed_app/presentation/components/bottomnav.dart';
 import 'package:vetmed_app/presentation/pages/authentication/SignUp_Page.dart';
 import 'package:vetmed_app/provider/google_sign_in.dart';
 
+import '../../../domain/entities/Clinic.dart';
 import '../../../domain/entities/VeterinaryDoctor.dart';
 import '../../../utils/main_utils.dart';
 import '../../widgets/main_widgets.dart';
@@ -20,6 +21,12 @@ class HomePage extends StatelessWidget {
           (snapshot) => snapshot.docs
               .map((doc) => VeterinaryDoctor.fromJson(doc.data()))
               .toList());
+
+  Stream<List<Clinic>> readClinics() => FirebaseFirestore.instance
+      .collection('Clinic')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => Clinic.fromJson(doc.data())).toList());
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +73,37 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  ClinicItem(
-                    clinicStars: 4.5,
-                    clinicLocation: 'Sopocachi',
-                    clinicName: 'Clínica Angeles y Guardianes',
-                    clinicPricing: 3,
-                    clinicImage:
-                        'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-                    clinicAttention: 200.0,
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/ClinicProfilePage');
-                    },
+                  Expanded(
+                    child: StreamBuilder<List<Clinic>>(
+                        stream: readClinics(),
+                        builder: (context, snapshot) {
+                          print("clinic ${snapshot.data}");
+                          if (snapshot.hasData) {
+                            final clinicLists = snapshot.data!;
+                            return ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: clinicLists.length,
+                              itemBuilder: (context, index) => ClinicItem(
+                                clinicStars: 4.5,
+                                clinicLocation: 'Sopocachi',
+                                clinicName: 'Clínica Angeles y Guardianes',
+                                clinicPricing: 3,
+                                clinicImage:
+                                    'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                                clinicAttention: 200.0,
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed('/ClinicProfilePage');
+                                },
+                              ),
+                            );
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        }),
                   ),
                   const SizedBox(
                     height: 24,
@@ -100,7 +127,8 @@ class HomePage extends StatelessWidget {
                             itemBuilder: (context, index) => DoctorItem(
                               doctorImage:
                                   '${veterinaryDoctorList[index].veterinaryDoctorPhoto}',
-                              doctorName: '${veterinaryDoctorList[index].name} ${veterinaryDoctorList[index].lastname}',
+                              doctorName:
+                                  '${veterinaryDoctorList[index].name} ${veterinaryDoctorList[index].lastname}',
                               onPressed: () {
                                 Navigator.of(context)
                                     .pushNamed('/DoctorProfilePage');
