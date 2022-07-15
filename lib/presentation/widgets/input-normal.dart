@@ -3,13 +3,22 @@ import 'package:flutter/material.dart';
 import '../../../utils/colors.dart';
 
 class InputNormal extends StatelessWidget {
-  final String placeholder;
-  const InputNormal({Key? key, required this.placeholder}  ) : super(key: key);
+  final String? placeholder;
+  final TextEditingController? textEditingController;
+  final bool? obscure;
+
+  const InputNormal(
+      {Key? key,
+      required this.placeholder,
+      required this.textEditingController,
+      this.obscure = false})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final _textController = TextEditingController();
     return TextField(
-      controller: _textController,
+      obscureText: obscure!,
+      controller: textEditingController,
       decoration: InputDecoration(
         labelText: placeholder,
         hintText: placeholder,
@@ -23,7 +32,7 @@ class InputNormal extends StatelessWidget {
         border: const OutlineInputBorder(),
         suffixIcon: IconButton(
           onPressed: () {
-            _textController.clear();
+            textEditingController?.clear();
           },
           icon: const Icon(Icons.clear),
         ),
@@ -31,4 +40,3 @@ class InputNormal extends StatelessWidget {
     );
   }
 }
-

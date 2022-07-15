@@ -14,6 +14,7 @@ class Clinic {
   String? clinicLocation;
   List<String>? clinicServices;
   List<String>? veterinaryDoctors;
+  double? clinicAveragePoints;
 
   Clinic({
     this.clinicId,
@@ -29,6 +30,7 @@ class Clinic {
     this.veterinaryDoctors,
     this.clinicInformation,
     this.clinicLocation,
+    this.clinicAveragePoints,
   });
 
   Map<String, dynamic> toJson() => {
@@ -45,6 +47,7 @@ class Clinic {
         'clinicLocation': clinicLocation,
         'veterinaryDoctors': veterinaryDoctors,
         'clinicServices': clinicServices,
+        'clinicAveragePoints': clinicAveragePoints,
       };
 
   static Clinic fromJson(Map<String, dynamic> json) => Clinic(
@@ -57,8 +60,9 @@ class Clinic {
         numberOfClients: json['NumberOfClients'],
         clinicInformation: json['ClinicInformation'],
         clinicLocation: json['ClinicLocation'],
-        positionCoordinate: json['PositionCoordinate'],
         contactNumber: json['ContactNumber'],
+        clinicAveragePoints: json['ClinicAveragePoints'],
+        // positionCoordinate: json['PositionCoordinate'],
         // clinicServices: json['ClinicServices'] as List<String>,
         // veterinaryDoctors: json['VeterinaryDoctors'] as List<String>,
       );

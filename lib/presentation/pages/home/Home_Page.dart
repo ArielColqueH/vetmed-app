@@ -77,21 +77,25 @@ class HomePage extends StatelessWidget {
                     child: StreamBuilder<List<Clinic>>(
                         stream: readClinics(),
                         builder: (context, snapshot) {
-                          print("clinic ${snapshot.data}");
                           if (snapshot.hasData) {
                             final clinicLists = snapshot.data!;
                             return ListView.builder(
+                              padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               itemCount: clinicLists.length,
                               itemBuilder: (context, index) => ClinicItem(
-                                clinicStars: 4.5,
-                                clinicLocation: 'Sopocachi',
-                                clinicName: 'Clínica Angeles y Guardianes',
-                                clinicPricing: 3,
+                                clinicStars:
+                                    clinicLists[index].clinicAveragePoints!,
+                                clinicLocation:
+                                    "${clinicLists[index].clinicLocation}",
+                                clinicName: "${clinicLists[index].clinicName}",
+                                clinicPricing:
+                                    clinicLists[index].clinicAverageCost!,
                                 clinicImage:
-                                    'https://images.unsplash.com/photo-1656326125836-b3422f35343a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-                                clinicAttention: 200.0,
+                                    "${clinicLists[index].clinicPhoto}",
+                                clinicAttention:
+                                    clinicLists[index].numberOfClients!,
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pushNamed('/ClinicProfilePage');

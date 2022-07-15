@@ -39,26 +39,30 @@ class SignUpPage extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            const InputNormal(
+            InputNormal(
               placeholder: 'Nombre',
+              textEditingController: null,
             ),
             const SizedBox(
               height: 16,
             ),
             const InputNormal(
               placeholder: 'Apellidos',
+              textEditingController: null,
             ),
             const SizedBox(
               height: 16,
             ),
             const InputNormal(
               placeholder: 'Correo electrónico',
+              textEditingController: null,
             ),
             const SizedBox(
               height: 16,
             ),
             const InputNormal(
               placeholder: 'Contraseñas',
+              textEditingController: null,
             ),
             const SizedBox(
               height: 8,

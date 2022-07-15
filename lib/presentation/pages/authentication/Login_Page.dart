@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -6,12 +7,37 @@ import '../../../utils/main_utils.dart';
 import '../../widgets/main_widgets.dart';
 import '../authentication/widgets/auth_widgets.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  static Future<User?> loginUsingEmailPassword({
+    required String email,
+    required String password,
+    required BuildContext context,
+  }) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        print("No user found for that email");
+      }
+    }
+    return user;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final _textController = TextEditingController();
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -45,14 +71,17 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            const InputNormal(
+            InputNormal(
               placeholder: 'Correo electrónico',
+              textEditingController: _emailController,
             ),
             const SizedBox(
               height: 16,
             ),
-            const InputNormal(
+            InputNormal(
               placeholder: 'Contraseñas',
+              textEditingController: _passwordController,
+              obscure: true,
             ),
             const SizedBox(
               height: 8,
@@ -63,8 +92,16 @@ class LoginPage extends StatelessWidget {
             ButtonNormal(
               color: primaryColor,
               text: 'Ingresar',
-              onPressed: () {
-                Navigator.of(context).pushNamed('/HomePage');
+              onPressed: () async {
+                User? user = await loginUsingEmailPassword(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    context: context);
+                if (user != null) {
+                  Navigator.of(context).pushNamed('/HomePage');
+                } else {
+                  print("Error al ingresar al sistema");
+                }
               },
             ),
             const SizedBox(
