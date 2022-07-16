@@ -139,9 +139,12 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 32,
             ),
-            const TwoLinkText(
+            TwoLinkText(
               normalText: '¿No tienes cuenta? ',
               linkText: 'Registrate por aqui',
+              onPressed: () {
+                Navigator.of(context).pushNamed('/SignUpPage');
+              },
             ),
           ],
         ),
@@ -150,4 +153,3 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-void signInWithGoogle() {}

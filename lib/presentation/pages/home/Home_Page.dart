@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vetmed_app/domain/entities/PetOwner.dart';
 import 'package:vetmed_app/presentation/components/bottomnav.dart';
 import 'package:vetmed_app/presentation/pages/authentication/SignUp_Page.dart';
 import 'package:vetmed_app/provider/google_sign_in.dart';
@@ -28,6 +29,12 @@ class HomePage extends StatelessWidget {
       .map((snapshot) =>
           snapshot.docs.map((doc) => Clinic.fromJson(doc.data())).toList());
 
+  Stream<List<PetOwner>> readPetOwner() => FirebaseFirestore.instance
+      .collection('PetOwner')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => PetOwner.fromJson(doc.data())).toList());
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -53,6 +60,9 @@ class HomePage extends StatelessWidget {
                 children: [
                   const SizedBox(
                     height: 32,
+                  ),
+                  BigText(
+                    texto: 'Bienvenido $name',
                   ),
                   BigText(
                     texto: 'Bienvenido $name',

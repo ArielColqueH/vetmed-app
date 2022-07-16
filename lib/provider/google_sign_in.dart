@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -22,6 +23,19 @@ class GoogleSignInProvider extends ChangeNotifier {
         idToken: googleAuth.idToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final user = FirebaseAuth.instance.currentUser;
+      final String? name = user?.displayName;
+      final String? email = user?.email;
+      List<String>? aux = name?.split(" ");
+      final docUser = FirebaseFirestore.instance.collection('PetOwner').doc();
+      final json = {
+        'PetOwnerId': docUser.id,
+        'Email': email,
+        'Name': aux![0],
+        'Lastname': aux[1],
+      };
+      docUser.set(json);
     } catch (e) {
       print(e.toString());
     }

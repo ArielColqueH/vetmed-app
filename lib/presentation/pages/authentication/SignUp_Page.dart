@@ -1,14 +1,26 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/main_utils.dart';
 import '../../widgets/main_widgets.dart';
 import '../authentication/widgets/auth_widgets.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
   @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final _nameTextController = TextEditingController();
+  final _lastnameTextController = TextEditingController();
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+  bool loading = false;
+
+  @override
   Widget build(BuildContext context) {
-    final _textController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -41,28 +53,29 @@ class SignUpPage extends StatelessWidget {
             ),
             InputNormal(
               placeholder: 'Nombre',
-              textEditingController: null,
+              textEditingController: _nameTextController,
             ),
             const SizedBox(
               height: 16,
             ),
-            const InputNormal(
+            InputNormal(
               placeholder: 'Apellidos',
-              textEditingController: null,
+              textEditingController: _lastnameTextController,
             ),
             const SizedBox(
               height: 16,
             ),
-            const InputNormal(
+            InputNormal(
               placeholder: 'Correo electrónico',
-              textEditingController: null,
+              textEditingController: _emailTextController,
             ),
             const SizedBox(
               height: 16,
             ),
-            const InputNormal(
+            InputNormal(
               placeholder: 'Contraseñas',
-              textEditingController: null,
+              textEditingController: _passwordTextController,
+              obscure: true,
             ),
             const SizedBox(
               height: 8,
@@ -74,6 +87,7 @@ class SignUpPage extends StatelessWidget {
               color: primaryColor,
               text: 'Empecemos',
               onPressed: () {
+                _signUp();
                 Navigator.of(context).pushNamed('/HomePage');
               },
             ),
@@ -90,13 +104,58 @@ class SignUpPage extends StatelessWidget {
             const SizedBox(
               height: 32,
             ),
-            const TwoLinkText(
+            TwoLinkText(
               normalText: '¿Ya tienes cuenta? ',
               linkText: 'Ingresa por aqui',
+              onPressed: () {
+                Navigator.of(context).pushNamed('/LoginPage');
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _handleSignUpError(FirebaseAuthException e) {
+    String message;
+    switch (e.code) {
+      case 'email-already-in-use':
+        message = "El email esta siendo usado";
+        break;
+      case 'invalid-email':
+        message = "El email es invalido";
+        break;
+      default:
+        message = "No se sabe que error es";
+        break;
+    }
+    print(message);
+  }
+
+  Future _signUp() async {
+    setState(() {
+      loading = true;
+    });
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailTextController.text,
+        password: _passwordTextController.text,
+      );
+      final docUser = FirebaseFirestore.instance.collection('PetOwner').doc();
+      final json = {
+        'PetOwnerId': docUser.id,
+        'Email': _emailTextController.text,
+        'Password': _passwordTextController.text,
+        'Name': _nameTextController.text,
+        'Lastname': _lastnameTextController.text,
+      };
+      docUser.set(json);
+    } on FirebaseAuthException catch (e) {
+      _handleSignUpError(e);
+      setState(() {
+        loading = false;
+      });
+    }
   }
 }

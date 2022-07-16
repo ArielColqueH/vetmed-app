@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import '../../utils/colors.dart';
 
 class TwoLinkText extends StatelessWidget {
-
   final String normalText;
   final String linkText;
+  final VoidCallback onPressed;
 
   const TwoLinkText(
-      {Key? key, required this.normalText, required this.linkText})
+      {Key? key,
+      required this.normalText,
+      required this.linkText,
+      required this.onPressed})
       : super(key: key);
 
   @override
@@ -26,9 +29,7 @@ class TwoLinkText extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {
-            print("link");
-          },
+          onTap: onPressed,
           child: Text(
             linkText,
             style: TextStyle(

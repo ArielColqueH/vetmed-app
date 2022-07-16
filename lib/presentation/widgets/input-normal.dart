@@ -30,12 +30,12 @@ class InputNormal extends StatelessWidget {
           ),
         ),
         border: const OutlineInputBorder(),
-        suffixIcon: IconButton(
-          onPressed: () {
-            textEditingController?.clear();
-          },
-          icon: const Icon(Icons.clear),
-        ),
+        // suffixIcon: IconButton(
+        //   onPressed: () {
+        //     textEditingController?.clear();
+        //   },
+        //   icon: const Icon(Icons.clear),
+        // ),
       ),
     );
   }
