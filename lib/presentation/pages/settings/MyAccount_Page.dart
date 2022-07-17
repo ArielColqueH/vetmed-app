@@ -11,7 +11,7 @@ class MyAccountPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("settings"),
       ),
-      bottomNavigationBar: BottomNav(),
+      bottomNavigationBar: BottomNav(index: 3),
     );
   }
 }

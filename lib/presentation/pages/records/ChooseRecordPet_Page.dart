@@ -10,7 +10,7 @@ class ChooseRecordPetPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Records"),
       ),
-      bottomNavigationBar: BottomNav(),
+      bottomNavigationBar: BottomNav(index: 2),
     );
   }
 }

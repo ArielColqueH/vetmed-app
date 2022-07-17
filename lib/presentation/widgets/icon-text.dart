@@ -15,7 +15,6 @@ class IconText extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-
           SvgPicture.asset(
             '$icon_url',
             width: 16,

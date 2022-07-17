@@ -64,7 +64,7 @@ class PetOwner {
         numViewsAtClinics: json['NumViewsAtClinics'],
         streatOfHouse: json['StreatOfHouse'],
         numOfHouse: json['NumOfHouse'],
-        zone: json['zone'],
+        zone: json['Zone'],
         city: json['City'],
         petOwnerPhoto: json['PetOwnerPhoto'],
         relativeRole: json['RelativeRole'],

@@ -204,7 +204,7 @@ class HomePage extends StatelessWidget {
           }
         },
       ),
-      bottomNavigationBar: BottomNav(),
+      bottomNavigationBar: BottomNav(index: 0),
     );
   }
 }

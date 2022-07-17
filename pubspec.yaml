@@ -77,6 +77,8 @@ flutter:
     - assets/icons/vetmed-dollar.svg
     - assets/icons/vetmed-star.svg
     - assets/icons/vetmed-calendar.svg
+    - assets/icons/vetmed-male.svg
+    - assets/icons/vetmed-female.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
