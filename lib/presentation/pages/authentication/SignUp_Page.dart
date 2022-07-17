@@ -142,9 +142,10 @@ class _SignUpPageState extends State<SignUpPage> {
         email: _emailTextController.text,
         password: _passwordTextController.text,
       );
-      final docUser = FirebaseFirestore.instance.collection('PetOwner').doc();
+      final user = FirebaseAuth.instance.currentUser;
+      final String? uid = user?.uid;
+      final docUser = FirebaseFirestore.instance.collection('PetOwner').doc(uid);
       final json = {
-        'PetOwnerId': docUser.id,
         'Email': _emailTextController.text,
         'Password': _passwordTextController.text,
         'Name': _nameTextController.text,

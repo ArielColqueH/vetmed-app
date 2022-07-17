@@ -15,22 +15,22 @@ class GoogleSignInProvider extends ChangeNotifier {
       final googleUser = await googleSignIn.signIn();
       if (googleUser == null) return;
       _user = googleUser;
-
       final googleAuth = await googleUser.authentication;
-
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
-
       final user = FirebaseAuth.instance.currentUser;
+      final String? uid = user?.uid;
+
+      print("user id:" + uid!);
+
       final String? name = user?.displayName;
       final String? email = user?.email;
       List<String>? aux = name?.split(" ");
-      final docUser = FirebaseFirestore.instance.collection('PetOwner').doc();
+      final docUser = FirebaseFirestore.instance.collection('PetOwner').doc(uid);
       final json = {
-        'PetOwnerId': docUser.id,
         'Email': email,
         'Name': aux![0],
         'Lastname': aux[1],

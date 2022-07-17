@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vetmed_app/domain/entities/PetOwner.dart';
 import 'package:vetmed_app/presentation/components/bottomnav.dart';
-import 'package:vetmed_app/presentation/pages/authentication/SignUp_Page.dart';
 import 'package:vetmed_app/provider/google_sign_in.dart';
-
 import '../../../domain/entities/Clinic.dart';
 import '../../../domain/entities/VeterinaryDoctor.dart';
-import '../../../utils/main_utils.dart';
 import '../../widgets/main_widgets.dart';
 import '../authentication/Login_Page.dart';
 import '../home/widgets/home_widgets.dart';
@@ -37,18 +34,21 @@ class HomePage extends StatelessWidget {
       .map((snapshot) =>
           snapshot.docs.map((doc) => PetOwner.fromJson(doc.data())).toList());
 
-  Future<PetOwner?> readPetOwner() async {
-    final docUser =
-        FirebaseFirestore.instance.collection('PetOwner').doc(userId);
-    final snapshot = await docUser.get();
-    if (snapshot.exists) {
-      return PetOwner.fromJson(snapshot.data()!);
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+
+    Future<PetOwner?> readPetOwner() async {
+      final docUser =
+      FirebaseFirestore.instance.collection('PetOwner').doc(user?.uid);
+      final snapshot = await docUser.get();
+      if (snapshot.exists) {
+        return PetOwner.fromJson(snapshot.data()!);
+      }
+    }
+
     final String? name = user?.displayName;
     final String? email = user?.email;
     final String? photoUrl = user?.photoURL;
