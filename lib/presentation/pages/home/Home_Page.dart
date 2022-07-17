@@ -15,6 +15,8 @@ import '../authentication/Login_Page.dart';
 import '../home/widgets/home_widgets.dart';
 
 class HomePage extends StatelessWidget {
+  final String userId = "nZKkLTcL9Yc2CyeWEV1q";
+
   const HomePage({Key? key}) : super(key: key);
 
   Stream<List<VeterinaryDoctor>> readVeterinaries() =>
@@ -29,11 +31,20 @@ class HomePage extends StatelessWidget {
       .map((snapshot) =>
           snapshot.docs.map((doc) => Clinic.fromJson(doc.data())).toList());
 
-  Stream<List<PetOwner>> readPetOwner() => FirebaseFirestore.instance
+  Stream<List<PetOwner>> readPetOwners() => FirebaseFirestore.instance
       .collection('PetOwner')
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => PetOwner.fromJson(doc.data())).toList());
+
+  Future<PetOwner?> readPetOwner() async {
+    final docUser =
+        FirebaseFirestore.instance.collection('PetOwner').doc(userId);
+    final snapshot = await docUser.get();
+    if (snapshot.exists) {
+      return PetOwner.fromJson(snapshot.data()!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +72,27 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 32,
                   ),
-                  BigText(
-                    texto: 'Bienvenido $name',
-                  ),
-                  BigText(
-                    texto: 'Bienvenido $name',
-                  ),
+                  // BigText(
+                  //   texto: 'Bienvenido $name',
+                  // ),
+                  FutureBuilder<PetOwner?>(
+                      future: readPetOwner(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final user = snapshot.data;
+                          return user == null
+                              ? Center(
+                                  child: Text('No user'),
+                                )
+                              : BigText(
+                                  texto: 'Bienvenido ${user.name}',
+                                );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      }),
                   const SizedBox(
                     height: 8,
                   ),
