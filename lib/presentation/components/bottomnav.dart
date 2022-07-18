@@ -22,7 +22,7 @@ class _BottomNavState extends State<BottomNav> {
         ),
       ),
       child: NavigationBar(
-        height: 60.0,
+        height: 70.0,
         backgroundColor: primaryWhite,
         selectedIndex: widget.index,
         onDestinationSelected: (index) => setState(() {

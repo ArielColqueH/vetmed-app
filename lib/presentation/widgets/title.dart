@@ -16,7 +16,7 @@ class TitleText extends StatelessWidget {
         style: TextStyle(
           fontSize: 22.0,
           color: primaryBlack,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.bold,
           height: 1.2727,
           fontFamily: 'Nunito',
         ),

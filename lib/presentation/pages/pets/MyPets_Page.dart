@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vetmed_app/utils/colors.dart';
 
 import '../../components/bottomnav.dart';
 import '../../widgets/PetCardItem.dart';
@@ -42,6 +43,14 @@ class MyPetsPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: primaryColor,
+        child: Icon(
+          Icons.add,
+          size: 24,
         ),
       ),
       bottomNavigationBar: BottomNav(index: 1),
