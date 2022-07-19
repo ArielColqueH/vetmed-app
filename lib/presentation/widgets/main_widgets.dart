@@ -7,3 +7,5 @@ export 'two-link-text.dart';
 export 'icon-text.dart';
 export 'simple_text.dart';
 export 'button-icon-text.dart';
+export 'photos-icon.dart';
+export 'multiselector.dart';

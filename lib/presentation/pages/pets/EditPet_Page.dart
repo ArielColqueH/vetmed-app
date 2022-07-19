@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../utils/colors.dart';
 import '../../widgets/main_widgets.dart';
 
@@ -14,10 +15,13 @@ class _EditMyPetPageState extends State<EditMyPetPage> {
   final _infoPetTextController = TextEditingController();
   final _breedPetTextController = TextEditingController();
   final _microchipPetTextController = TextEditingController();
-
+  double ageDog = 0;
+  double weigthDog = 0;
+  String valorInicial = "Macho";
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -63,6 +67,7 @@ class _EditMyPetPageState extends State<EditMyPetPage> {
               InputNormal(
                 placeholder: 'Información de mascota',
                 textEditingController: _infoPetTextController,
+                isTextArea: true,
               ),
               SizedBox(
                 height: 24,
@@ -95,18 +100,33 @@ class _EditMyPetPageState extends State<EditMyPetPage> {
               ),
               Row(
                 children: [
-                  ButtonIconText(
-                    color: primaryColor,
-                    text: 'Ir a clínica',
-                    onPressed: () {},
+                  Multiselector(
+                    onPressed: () {
+                      setState(() {
+                        valorInicial = "Macho";
+                      });
+                      print(valorInicial);
+
+                    },
+                    buttonText: 'Macho',
+                    icon: 'assets/icons/vetmed-male.svg',
+                    selectableItem: 'Macho',
+                    selectableGroup: valorInicial,
                   ),
                   SizedBox(
                     width: 7,
                   ),
-                  ButtonIconText(
-                    color: primaryColor,
-                    text: 'Ir a clínica',
-                    onPressed: () {},
+                  Multiselector(
+                    onPressed: () {
+                      setState(() {
+                        valorInicial = "Hembra";
+                      });
+                      print(valorInicial);
+                    },
+                    buttonText: 'Hembra',
+                    icon: 'assets/icons/vetmed-female.svg',
+                    selectableItem: 'Hembra',
+                    selectableGroup: valorInicial,
                   ),
                 ],
               ),
@@ -119,6 +139,20 @@ class _EditMyPetPageState extends State<EditMyPetPage> {
               SizedBox(
                 height: 8,
               ),
+              Slider(
+                  thumbColor: primaryColor,
+                  inactiveColor: terciaryColor,
+                  activeColor: primaryColor,
+                  label: "$ageDog",
+                  divisions: 15,
+                  min: 0,
+                  max: 15,
+                  value: ageDog,
+                  onChanged: (newRating) {
+                    setState(() {
+                      ageDog = newRating;
+                    });
+                  }),
               SizedBox(
                 height: 24,
               ),
@@ -128,6 +162,20 @@ class _EditMyPetPageState extends State<EditMyPetPage> {
               SizedBox(
                 height: 8,
               ),
+              Slider(
+                  thumbColor: primaryColor,
+                  inactiveColor: terciaryColor,
+                  activeColor: primaryColor,
+                  label: "$weigthDog",
+                  divisions: 20,
+                  min: 0,
+                  max: 20,
+                  value: weigthDog,
+                  onChanged: (newRating) {
+                    setState(() {
+                      weigthDog = newRating;
+                    });
+                  }),
               SizedBox(
                 height: 24,
               ),
@@ -137,6 +185,46 @@ class _EditMyPetPageState extends State<EditMyPetPage> {
               SizedBox(
                 height: 8,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PhotosIcon(
+                    iconPhoto: Icons.camera_alt,
+                    color: primaryColor,
+                    onPressed: () {},
+                    textIcon: 'Sacar foto',
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  PhotosIcon(
+                    iconPhoto: Icons.photo,
+                    color: primaryColor,
+                    textIcon: 'Seleccionar',
+                    onPressed: () {},
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5.0),
+                child: Image.network(
+                  fit: BoxFit.cover,
+                  'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+                  height: 100.0,
+                  width: 100.0,
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              ButtonNormal(
+                color: primaryColor,
+                text: 'Guardar',
+                onPressed: () {},
+              )
             ],
           ),
         ),
