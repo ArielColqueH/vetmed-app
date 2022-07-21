@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vetmed_app/utils/colors.dart';
-
+import '../../../domain/entities/Pet.dart';
 import '../../components/bottomnav.dart';
 import '../../widgets/PetCardItem.dart';
 import '../home/widgets/bigtext.dart';
@@ -8,12 +9,13 @@ import '../home/widgets/bigtext.dart';
 class MyPetsPage extends StatelessWidget {
   const MyPetsPage({Key? key}) : super(key: key);
 
+  Stream<List<Pet>> readPets() =>
+      FirebaseFirestore.instance.collection('Pet').snapshots().map((snapshot) =>
+          snapshot.docs.map((doc) => Pet.fromJson(doc.data())).toList());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("MyPets"),
-      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -30,17 +32,35 @@ class MyPetsPage extends StatelessWidget {
               SizedBox(
                 height: 16,
               ),
-              PetCardItem(
-                petSex: 'male',
-                petName: 'Mike Peñaloza',
-                petBreed: 'Golden',
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/MyPetProfilePage');
-                },
-                petLifetime: '7 years',
-                petPhoto:
-                    'https://images.unsplash.com/photo-1510771463146-e89e6e86560e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80',
-              ),
+              StreamBuilder<List<Pet>>(
+                  stream: readPets(),
+                  builder: (context, snapshot) {
+                    print(snapshot.data);
+                    if (snapshot.hasData) {
+                      final petLists = snapshot.data!;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: petLists.length,
+                        itemBuilder: (context, index) => PetCardItem(
+                          petSex: '${petLists[index].petGender}',
+                          petName: '${petLists[index].petName} ${petLists[index].petLastname}',
+                          petBreed: '${petLists[index].petBreed}',
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed('/MyPetProfilePage');
+                          },
+                          petLifetime: '7 years',
+                          petPhoto: '${petLists[index].petPhoto}',
+                        ),
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }),
             ],
           ),
         ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../utils/main_utils.dart';
@@ -80,12 +79,13 @@ class PetCardItem extends StatelessWidget {
                           ),
                         ),
                         SvgPicture.asset(
-                          'assets/icons/vetmed-male.svg',
+                          petSex == "Macho"
+                              ? 'assets/icons/vetmed-male.svg'
+                              : 'assets/icons/vetmed-female.svg',
                           width: 18,
                         ),
                       ],
                     ),
-
                     const SizedBox(
                       height: 6,
                     ),
