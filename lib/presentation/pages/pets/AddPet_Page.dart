@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../utils/colors.dart';
 import '../../widgets/main_widgets.dart';
+import 'package:intl/intl.dart';
 
 class AddMyPetPage extends StatefulWidget {
   const AddMyPetPage({Key? key}) : super(key: key);
@@ -13,6 +14,9 @@ class AddMyPetPage extends StatefulWidget {
 }
 
 class _AddMyPetPageState extends State<AddMyPetPage> {
+  // DateTime dateToday =  DateTime.now().toUtc();
+  // Timestamp _stampdate =
+  DateTime dateToday = DateTime.now();
   final _namePetTextController = TextEditingController();
   final _lastnamePetTextController = TextEditingController();
   final _infoPetTextController = TextEditingController();
@@ -26,6 +30,7 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
 
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -105,9 +110,53 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
               const SizedBox(
                 height: 8,
               ),
-              InputNormal(
-                placeholder: 'Fecha de nacimiento',
-                textEditingController: _bornDatePetTextController,
+              // InputNormal(
+              //   placeholder: 'Fecha de nacimiento',
+              //   textEditingController: _bornDatePetTextController,
+              // ),
+              TextField(
+                controller: _bornDatePetTextController,
+                decoration: InputDecoration(
+                  labelStyle: TextStyle(color: primaryBlack),
+                  labelText: "Ingresa la fecha de nacimiento",
+                  hintText: "Fecha de nacimiento",
+                  hoverColor: primaryColor,
+                  focusedBorder: OutlineInputBorder(
+                    // width: 0.0 produces a thin "hairline" border
+                    borderSide: BorderSide(
+                      color: primaryColor,
+                      width: 2.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    // width: 0.0 produces a thin "hairline" border
+                    borderSide: BorderSide(
+                      color: primaryColor,
+                      width: 1.0,
+                    ),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () async {
+                      print("timenow ${dateToday}");
+                      DateTime? newDate = await showDatePicker(
+                        context: context,
+                        initialDate: dateToday,
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2100),
+                      );
+                      if (newDate == null) return;
+                      setState(() {
+                        dateToday = newDate.add(new Duration(hours: 12));
+                        print("date ${dateToday} ${newDate}");
+                        // _bornDatePetTextController.text = dateToday.toString();
+                        _bornDatePetTextController.text =
+                            "${dateToday.day} / ${dateToday.month} / ${dateToday.year}";
+                      });
+                    },
+                    icon: const Icon(Icons.calendar_today),
+                    color: primaryColor,
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 8,
@@ -209,7 +258,7 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
                   final petInfo = _infoPetTextController.text;
                   final petBreed = _breedPetTextController.text;
                   final petMicrochip = _microchipPetTextController.text;
-                  final petBorn = _bornDatePetTextController.text;
+                  final petBorn = Timestamp.fromDate(dateToday);
                   final petWeight = _weightPetTextController.text;
                   createPet(
                     petname: petName,
@@ -236,7 +285,7 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
     required String petinfo,
     required String petbreed,
     required String petmicrochip,
-    required String petborn,
+    required Timestamp petborn,
     required String petweight,
     required String petgender,
   }) async {
