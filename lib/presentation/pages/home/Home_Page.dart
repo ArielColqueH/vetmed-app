@@ -12,7 +12,7 @@ import '../authentication/Login_Page.dart';
 import '../home/widgets/home_widgets.dart';
 
 class HomePage extends StatelessWidget {
-  final String userId = "nZKkLTcL9Yc2CyeWEV1q";
+
 
   const HomePage({Key? key}) : super(key: key);
 
@@ -48,10 +48,10 @@ class HomePage extends StatelessWidget {
         return PetOwner.fromJson(snapshot.data()!);
       }
     }
-
-    final String? name = user?.displayName;
-    final String? email = user?.email;
-    final String? photoUrl = user?.photoURL;
+    //
+    // final String? name = user?.displayName;
+    // final String? email = user?.email;
+    // final String? photoUrl = user?.photoURL;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: StreamBuilder(

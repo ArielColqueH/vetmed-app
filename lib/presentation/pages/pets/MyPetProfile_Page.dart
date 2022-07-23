@@ -75,13 +75,16 @@ class MyPetProfilePage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ClinicInfoCard(titleCardPet: "Raza", textCardPet: "Golden"),
-                            ClinicInfoCard(titleCardPet: "Sexo", textCardPet: "Macho"),
-                            ClinicInfoCard(titleCardPet: "Edad", textCardPet: "+3 años"),
-                            ClinicInfoCard(titleCardPet: "Peso", textCardPet: "12 Kg"),
+                            ClinicInfoCard(
+                                titleCardPet: "Raza", textCardPet: "Golden"),
+                            ClinicInfoCard(
+                                titleCardPet: "Sexo", textCardPet: "Macho"),
+                            ClinicInfoCard(
+                                titleCardPet: "Edad", textCardPet: "+3 años"),
+                            ClinicInfoCard(
+                                titleCardPet: "Peso", textCardPet: "12 Kg"),
                           ],
                         ),
-
                       ],
                     ),
                   ),
@@ -116,7 +119,7 @@ class MyPetProfilePage extends StatelessWidget {
                         ),
                         SimpleText(
                           texto:
-                          'Soy Mike, me distraen bastante los juguetes y me divierto con ellos hasta destrozarlos. No tengo problemas conociendo a nuevas personas pero si a sus mascotas, no me llevo muy bien con ellas, un poco si con la hembras. Hasta ahora no he tenido problemas graves en mi salud pero uno nunca sabe.',
+                              'Soy Mike, me distraen bastante los juguetes y me divierto con ellos hasta destrozarlos. No tengo problemas conociendo a nuevas personas pero si a sus mascotas, no me llevo muy bien con ellas, un poco si con la hembras. Hasta ahora no he tenido problemas graves en mi salud pero uno nunca sabe.',
                         ),
                         SizedBox(
                           height: 42,
@@ -125,8 +128,7 @@ class MyPetProfilePage extends StatelessWidget {
                           color: primaryColor,
                           text: 'Editar',
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed('/ManageMyPetPage');
+                            Navigator.of(context).pushNamed('/EditMyPetPage');
                           },
                         )
                       ],

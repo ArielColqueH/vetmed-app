@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vetmed_app/utils/colors.dart';
 import '../../../domain/entities/Pet.dart';
@@ -9,12 +10,15 @@ import '../home/widgets/bigtext.dart';
 class MyPetsPage extends StatelessWidget {
   const MyPetsPage({Key? key}) : super(key: key);
 
-  Stream<List<Pet>> readPets() =>
-      FirebaseFirestore.instance.collection('Pet').snapshots().map((snapshot) =>
-          snapshot.docs.map((doc) => Pet.fromJson(doc.data())).toList());
-
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    Stream<List<Pet>> readPets() => FirebaseFirestore.instance
+        .collection('Pet')
+        .where("PetOwnerId", isEqualTo: user?.uid)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Pet.fromJson(doc.data())).toList());
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -45,7 +49,8 @@ class MyPetsPage extends StatelessWidget {
                         itemCount: petLists.length,
                         itemBuilder: (context, index) => PetCardItem(
                           petSex: '${petLists[index].petGender}',
-                          petName: '${petLists[index].petName} ${petLists[index].petLastname}',
+                          petName:
+                              '${petLists[index].petName} ${petLists[index].petLastname}',
                           petBreed: '${petLists[index].petBreed}',
                           onPressed: () {
                             Navigator.of(context)
@@ -66,7 +71,9 @@ class MyPetsPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('/AddMyPetPage');
+        },
         backgroundColor: primaryColor,
         child: Icon(
           Icons.add,

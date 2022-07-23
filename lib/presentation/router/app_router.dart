@@ -6,6 +6,7 @@ import 'package:vetmed_app/presentation/pages/authentication/Welcome_Page.dart';
 import 'package:vetmed_app/presentation/pages/home/ClinicLocation_Page.dart';
 import 'package:vetmed_app/presentation/pages/home/ClinicProfile_Page.dart';
 import 'package:vetmed_app/presentation/pages/home/DoctorProfile_Page.dart';
+import 'package:vetmed_app/presentation/pages/pets/AddPet_Page.dart';
 import 'package:vetmed_app/presentation/pages/pets/EditPet_Page.dart';
 import 'package:vetmed_app/presentation/pages/pets/MyPetProfile_Page.dart';
 import 'package:vetmed_app/presentation/pages/pets/MyPets_Page.dart';
@@ -44,8 +45,11 @@ class AppRouter {
       case '/MyPetProfilePage':
         return MaterialPageRoute(builder: (_) => const MyPetProfilePage());
         break;
-      case '/ManageMyPetPage':
+      case '/EditMyPetPage':
         return MaterialPageRoute(builder: (_) => const EditMyPetPage());
+        break;
+      case '/AddMyPetPage':
+        return MaterialPageRoute(builder: (_) => const AddMyPetPage());
         break;
       case '/ChooseRecordPetPage':
         return MaterialPageRoute(builder: (_) => const ChooseRecordPetPage());
