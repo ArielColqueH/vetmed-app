@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../utils/colors.dart';
@@ -28,9 +32,37 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
   double weigthDog = 0;
   String petGender = "Macho";
 
+  PlatformFile? pickedFile;
+  UploadTask? uploadTask;
+
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null) return;
+    setState(() {
+      pickedFile = result.files.first;
+    });
+  }
+
+  Future uploadFile() async {
+    final path = 'files/${pickedFile!.name}';
+    final file = File(pickedFile!.path!);
+
+    final ref = FirebaseStorage.instance.ref().child(path);
+    setState(() {
+      uploadTask = ref.putFile(file);
+    });
+
+    final snapshot = await uploadTask!.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    print("here");
+    print('download link $urlDownload');
+    setState(() {
+      uploadTask = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -147,7 +179,7 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
                       if (newDate == null) return;
                       setState(() {
                         dateToday = newDate.add(new Duration(hours: 12));
-                        print("date ${dateToday} ${newDate}");
+                        // print("date ${dateToday} ${newDate}");
                         // _bornDatePetTextController.text = dateToday.toString();
                         _bornDatePetTextController.text =
                             "${dateToday.day} / ${dateToday.month} / ${dateToday.year}";
@@ -230,54 +262,96 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
                     iconPhoto: Icons.photo,
                     color: primaryColor,
                     textIcon: 'Seleccionar',
-                    onPressed: () {},
+                    onPressed: selectFile,
                   )
                 ],
               ),
               SizedBox(
                 height: 20,
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5.0),
-                child: Image.network(
-                  fit: BoxFit.cover,
-                  'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-                  height: 100.0,
-                  width: 100.0,
+              if (pickedFile != null)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.file(
+                    File(pickedFile!.path!),
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
               SizedBox(
                 height: 40,
               ),
+
               ButtonNormal(
                 color: primaryColor,
                 text: 'Agregar mascota',
-                onPressed: () {
-                  final petName = _namePetTextController.text;
-                  final petLastname = _lastnamePetTextController.text;
-                  final petInfo = _infoPetTextController.text;
-                  final petBreed = _breedPetTextController.text;
-                  final petMicrochip = _microchipPetTextController.text;
-                  final petBorn = Timestamp.fromDate(dateToday);
-                  final petWeight = _weightPetTextController.text;
-                  createPet(
-                    petname: petName,
-                    petlastname: petLastname,
-                    petinfo: petInfo,
-                    petbreed: petBreed,
-                    petmicrochip: petMicrochip,
-                    petborn: petBorn,
-                    petweight: petWeight,
-                    petgender: petGender,
-                  );
-                },
-              )
+                onPressed: uploadFile,
+                // final petName = _namePetTextController.text;
+                // final petLastname = _lastnamePetTextController.text;
+                // final petInfo = _infoPetTextController.text;
+                // final petBreed = _breedPetTextController.text;
+                // final petMicrochip = _microchipPetTextController.text;
+                // final petBorn = Timestamp.fromDate(dateToday);
+                // final petWeight = _weightPetTextController.text;
+                // createPet(
+                //   petname: petName,
+                //   petlastname: petLastname,
+                //   petinfo: petInfo,
+                //   petbreed: petBreed,
+                //   petmicrochip: petMicrochip,
+                //   petborn: petBorn,
+                //   petweight: petWeight,
+                //   petgender: petGender,
+                // );
+                // },
+              ),
+              buildProgress(),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget buildProgress() => StreamBuilder<TaskSnapshot>(
+      stream: uploadTask?.snapshotEvents,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final data = snapshot.data!;
+          double progress = data.bytesTransferred / data.totalBytes;
+          print(progress);
+          return Container(
+            color: Colors.red,
+            child: SizedBox(
+              height: 50,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  LinearProgressIndicator(
+                    value: progress,
+                    backgroundColor: Colors.grey,
+                    color: Colors.green,
+                  ),
+                  Center(
+                    child: Text(
+                      '${(100 * progress).roundToDouble()}%',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        } else {
+          return Container(
+            color: Colors.orange,
+            child: const SizedBox(
+              height: 50,
+            ),
+          );
+        }
+      });
 
   Future createPet({
     required String petname,
