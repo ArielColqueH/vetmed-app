@@ -43,7 +43,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const MyPetsPage());
         break;
       case '/MyPetProfilePage':
-        return MaterialPageRoute(builder: (_) => const MyPetProfilePage());
+        final arguments = routeSettings.arguments;
+        return MaterialPageRoute(
+            builder: (_) => MyPetProfilePage(petId: arguments.toString()));
         break;
       case '/EditMyPetPage':
         return MaterialPageRoute(builder: (_) => const EditMyPetPage());

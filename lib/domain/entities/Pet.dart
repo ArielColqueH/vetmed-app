@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Pet {
+  String? petId;
   String? petName;
   String? petLastname;
   String? petOwner;
@@ -15,6 +16,7 @@ class Pet {
   String? petPhoto;
 
   Pet({
+    this.petId,
     this.petName,
     this.petLastname,
     this.petOwner,
@@ -41,6 +43,7 @@ class Pet {
       };
 
   static Pet fromJson(Map<String, dynamic> json) => Pet(
+        petId: json['PetId'],
         petName: json['PetName'],
         petLastname: json['PetLastname'],
         petOwner: json['PetOwner'],

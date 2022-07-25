@@ -20,6 +20,7 @@ class AddMyPetPage extends StatefulWidget {
 class _AddMyPetPageState extends State<AddMyPetPage> {
   // DateTime dateToday =  DateTime.now().toUtc();
   // Timestamp _stampdate =
+
   DateTime dateToday = DateTime.now();
   final _namePetTextController = TextEditingController();
   final _lastnamePetTextController = TextEditingController();
@@ -28,6 +29,7 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
   final _microchipPetTextController = TextEditingController();
   final _bornDatePetTextController = TextEditingController();
   final _weightPetTextController = TextEditingController();
+  String petPhoto = "";
   double ageDog = 0;
   double weigthDog = 0;
   String petGender = "Macho";
@@ -54,6 +56,8 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
 
     final snapshot = await uploadTask!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
+    petPhoto = urlDownload.toString();
+    print('url impreso' + petPhoto);
     print("here");
     print('download link $urlDownload');
     setState(() {
@@ -286,25 +290,27 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
               ButtonNormal(
                 color: primaryColor,
                 text: 'Agregar mascota',
-                onPressed: uploadFile,
-                // final petName = _namePetTextController.text;
-                // final petLastname = _lastnamePetTextController.text;
-                // final petInfo = _infoPetTextController.text;
-                // final petBreed = _breedPetTextController.text;
-                // final petMicrochip = _microchipPetTextController.text;
-                // final petBorn = Timestamp.fromDate(dateToday);
-                // final petWeight = _weightPetTextController.text;
-                // createPet(
-                //   petname: petName,
-                //   petlastname: petLastname,
-                //   petinfo: petInfo,
-                //   petbreed: petBreed,
-                //   petmicrochip: petMicrochip,
-                //   petborn: petBorn,
-                //   petweight: petWeight,
-                //   petgender: petGender,
-                // );
-                // },
+                onPressed: () async {
+                  await uploadFile();
+                  final petName = _namePetTextController.text;
+                  final petLastname = _lastnamePetTextController.text;
+                  final petInfo = _infoPetTextController.text;
+                  final petBreed = _breedPetTextController.text;
+                  final petMicrochip = _microchipPetTextController.text;
+                  final petBorn = Timestamp.fromDate(dateToday);
+                  final petWeight = _weightPetTextController.text;
+                  createPet(
+                    petname: petName,
+                    petlastname: petLastname,
+                    petinfo: petInfo,
+                    petbreed: petBreed,
+                    petmicrochip: petMicrochip,
+                    petborn: petBorn,
+                    petweight: petWeight,
+                    petgender: petGender,
+                    petphoto: petPhoto,
+                  );
+                },
               ),
               buildProgress(),
             ],
@@ -362,10 +368,12 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
     required Timestamp petborn,
     required String petweight,
     required String petgender,
+    required String petphoto,
   }) async {
     final user = FirebaseAuth.instance.currentUser;
     final docUser = FirebaseFirestore.instance.collection('Pet').doc();
     final json = {
+      'PetId': docUser.id,
       'PetName': petname,
       'PetLastname': petlastname,
       'PetBiography': petinfo,
@@ -375,6 +383,7 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
       'PetBornDate': petborn,
       'PetGender': petgender,
       'PetOwnerId': user?.uid,
+      'PetPhoto': petphoto,
     };
     await docUser.set(json);
   }

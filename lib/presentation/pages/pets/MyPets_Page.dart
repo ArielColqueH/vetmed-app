@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vetmed_app/utils/colors.dart';
 import '../../../domain/entities/Pet.dart';
@@ -17,16 +18,18 @@ class MyPetsPage extends StatelessWidget {
         .collection('Pet')
         .where("PetOwnerId", isEqualTo: user?.uid)
         .snapshots()
-        .map((snapshot) =>
-            snapshot.docs.map((doc) => Pet.fromJson(doc.data())).toList());
+        .map((snapshot) => snapshot.docs.map((doc) {
+              return Pet.fromJson(doc.data());
+            }).toList());
     return Scaffold(
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Padding(
           padding: const EdgeInsets.only(
             top: 60,
             left: 16,
             right: 16,
-            bottom: 40,
+            bottom: 20,
           ),
           child: Column(
             children: [
@@ -39,10 +42,10 @@ class MyPetsPage extends StatelessWidget {
               StreamBuilder<List<Pet>>(
                   stream: readPets(),
                   builder: (context, snapshot) {
-                    print(snapshot.data);
                     if (snapshot.hasData) {
                       final petLists = snapshot.data!;
                       return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
@@ -52,12 +55,15 @@ class MyPetsPage extends StatelessWidget {
                           petName:
                               '${petLists[index].petName} ${petLists[index].petLastname}',
                           petBreed: '${petLists[index].petBreed}',
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed('/MyPetProfilePage');
-                          },
                           petLifetime: '7 years',
                           petPhoto: '${petLists[index].petPhoto}',
+                          onPressed: () {
+                            // print(petLists[index].petId);
+                            Navigator.of(context).pushNamed(
+                              '/MyPetProfilePage',
+                              arguments: petLists[index].petId,
+                            );
+                          },
                         ),
                       );
                     } else {
