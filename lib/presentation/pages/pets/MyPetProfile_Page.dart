@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:vetmed_app/presentation/widgets/button-delete.dart';
 import '../../../domain/entities/Pet.dart';
 import '../../../utils/colors.dart';
 import '../../widgets/main_widgets.dart';
@@ -11,7 +12,7 @@ class MyPetProfilePage extends StatelessWidget {
   const MyPetProfilePage({Key? key, required this.petId}) : super(key: key);
 
   Future<Pet?> readPet() async {
-    print("PetId: " + petId);
+    // print("PetId: " + petId);
     final docPet = FirebaseFirestore.instance.collection("Pet").doc(petId);
     final snapshot = await docPet.get();
     if (snapshot.exists) {
@@ -58,16 +59,28 @@ class MyPetProfilePage extends StatelessWidget {
                           ),
                           Positioned(
                             top: 40,
-                            left: 16,
-                            child: Row(
-                              children: [
-                                ButtonBack(
-                                  color: Colors.white,
-                                  onPressed: () {
-                                    Navigator.pop(context, false);
-                                  },
-                                ),
-                              ],
+                            width: size.width,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ButtonBack(
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      Navigator.pop(context, false);
+                                    },
+                                  ),
+                                  ButtonDelete(
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      print("eliminar");
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           Positioned(
@@ -112,11 +125,11 @@ class MyPetProfilePage extends StatelessWidget {
                                         ClinicInfoCard(
                                             titleCardPet: "Edad",
                                             textCardPet:
-                                                '${petData.petBornDate}'),
+                                                '${petYears(petData.petBornDate)}'),
                                         ClinicInfoCard(
                                             titleCardPet: "Peso",
                                             textCardPet:
-                                                '${petData.petLastWeight}'),
+                                                '${petData.petLastWeight} Kg'),
                                       ],
                                     ),
                                   ],
@@ -182,5 +195,29 @@ class MyPetProfilePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String petYears(petBornDate) {
+    String bornDate = petBornDate.toString().split(" ")[0];
+    List<String>? datedata = bornDate.split("-");
+    DateTime date1 = DateTime(
+        int.parse(datedata[0]), int.parse(datedata[1]), int.parse(datedata[2]));
+    DateTime date2 = DateTime.now();
+    int difference = daysBetween(date1, date2);
+    int years = (difference / 365).floor();
+    // print("years" + years.toString());
+    String value = "";
+    if (years != 0) {
+      value = years.toString() + " años";
+    } else {
+      value = difference.toString() + " dias";
+    }
+    return value;
+  }
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
   }
 }
