@@ -33,10 +33,8 @@ class MyPetProfilePage extends StatelessWidget {
         child: FutureBuilder<Pet?>(
           future: readPet(),
           builder: (context, snapshot) {
-            print(snapshot.hasData);
             if (snapshot.hasData) {
               final petData = snapshot.data!;
-              print(petData.petPhoto);
               return petData == null
                   ? Center(child: Text("No pet data"))
                   : Container(
@@ -175,7 +173,8 @@ class MyPetProfilePage extends StatelessWidget {
                                       text: 'Editar',
                                       onPressed: () {
                                         Navigator.of(context)
-                                            .pushNamed('/EditMyPetPage');
+                                            .pushNamed('/EditMyPetPage',
+                                          arguments: petId);
                                       },
                                     )
                                   ],

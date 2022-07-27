@@ -11,7 +11,7 @@ class Pet {
   String? petBreed;
   DateTime? petBornDate;
   String? petBiography;
-  double? petLastWeight;
+  String? petLastWeight;
   String? petMicrochip;
   String? petPhoto;
 
@@ -49,6 +49,7 @@ class Pet {
         petOwner: json['PetOwner'],
         petGender: json['PetGender'],
         petBreed: json['PetBreed'],
+        petLastWeight: json['PetLastWeight'],
         petBiography: json['PetBiography'],
         petMicrochip: json['PetMicrochip'],
         petPhoto: json['PetPhoto'],
