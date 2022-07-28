@@ -74,7 +74,17 @@ class MyPetProfilePage extends StatelessWidget {
                                   ButtonDelete(
                                     color: Colors.white,
                                     onPressed: () {
-                                      print("eliminar");
+                                      final collection = FirebaseFirestore
+                                          .instance
+                                          .collection('Pet');
+                                      collection
+                                          .doc(
+                                              petId) // <-- Doc ID to be deleted.
+                                          .delete() // <-- Delete
+                                          .then((_) =>
+                                              print('Se elimino la colección'))
+                                          .catchError((error) => print(
+                                              'Falló la eliminación: $error'));
                                     },
                                   ),
                                 ],
@@ -87,8 +97,8 @@ class MyPetProfilePage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: backgroundWhite,
                                 borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20.0),
+                                  topLeft: Radius.circular(20.0),
                                 ),
                               ),
                               width: size.width,
@@ -125,7 +135,7 @@ class MyPetProfilePage extends StatelessWidget {
                                             textCardPet:
                                                 '${petYears(petData.petBornDate)}'),
                                         ClinicInfoCard(
-                                            titleCardPet: "Peso",
+                                            titleCardPet: "Peso en Kg",
                                             textCardPet:
                                                 '${petData.petLastWeight} Kg'),
                                       ],
@@ -172,9 +182,9 @@ class MyPetProfilePage extends StatelessWidget {
                                       color: primaryColor,
                                       text: 'Editar',
                                       onPressed: () {
-                                        Navigator.of(context)
-                                            .pushNamed('/EditMyPetPage',
-                                          arguments: petId);
+                                        Navigator.of(context).pushNamed(
+                                            '/EditMyPetPage',
+                                            arguments: petId);
                                       },
                                     )
                                   ],

@@ -57,9 +57,9 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
     final snapshot = await uploadTask!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
     petPhoto = urlDownload.toString();
-    print('url impreso' + petPhoto);
-    print("here");
-    print('download link $urlDownload');
+    // print('url impreso' + petPhoto);
+    // print("here");
+    // print('download link $urlDownload');
     setState(() {
       uploadTask = null;
     });
@@ -254,37 +254,28 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   PhotosIcon(
-                    iconPhoto: Icons.camera_alt,
-                    color: primaryColor,
-                    onPressed: () {},
-                    textIcon: 'Sacar foto',
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  PhotosIcon(
                     iconPhoto: Icons.photo,
                     color: primaryColor,
                     textIcon: 'Seleccionar',
                     onPressed: selectFile,
-                  )
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  if (pickedFile != null)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.file(
+                        File(pickedFile!.path!),
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                 ],
               ),
               SizedBox(
                 height: 20,
-              ),
-              if (pickedFile != null)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.file(
-                    File(pickedFile!.path!),
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              SizedBox(
-                height: 40,
               ),
 
               ButtonNormal(
