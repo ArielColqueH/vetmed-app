@@ -12,8 +12,6 @@ import '../authentication/Login_Page.dart';
 import '../home/widgets/home_widgets.dart';
 
 class HomePage extends StatelessWidget {
-
-
   const HomePage({Key? key}) : super(key: key);
 
   Stream<List<VeterinaryDoctor>> readVeterinaries() =>
@@ -34,20 +32,19 @@ class HomePage extends StatelessWidget {
       .map((snapshot) =>
           snapshot.docs.map((doc) => PetOwner.fromJson(doc.data())).toList());
 
-
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-
+    final FirebaseAuth userfinal = FirebaseAuth.instance;
     Future<PetOwner?> readPetOwner() async {
       final docUser =
-      FirebaseFirestore.instance.collection('PetOwner').doc(user?.uid);
+          FirebaseFirestore.instance.collection('PetOwner').doc(user?.uid);
       final snapshot = await docUser.get();
       if (snapshot.exists) {
         return PetOwner.fromJson(snapshot.data()!);
       }
     }
+
     //
     // final String? name = user?.displayName;
     // final String? email = user?.email;
@@ -207,4 +204,13 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: BottomNav(index: 0),
     );
   }
+
+  // Future signOut() async {
+  //   try {
+  //     return await userfinal.signOut();
+  //   } catch (e) {
+  //     print(e.toString());
+  //     return null;
+  //   }
+  // }
 }

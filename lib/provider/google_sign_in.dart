@@ -24,12 +24,13 @@ class GoogleSignInProvider extends ChangeNotifier {
       final user = FirebaseAuth.instance.currentUser;
       final String? uid = user?.uid;
 
-      print("user id:" + uid!);
+      // print("user id:" + uid!);
 
       final String? name = user?.displayName;
       final String? email = user?.email;
       List<String>? aux = name?.split(" ");
-      final docUser = FirebaseFirestore.instance.collection('PetOwner').doc(uid);
+      final docUser =
+          FirebaseFirestore.instance.collection('PetOwner').doc(uid);
       final json = {
         'Email': email,
         'Name': aux![0],
@@ -44,7 +45,9 @@ class GoogleSignInProvider extends ChangeNotifier {
   }
 
   Future logout() async {
-    await googleSignIn.disconnect();
+    if (googleSignIn.currentUser != null) {
+      await googleSignIn.disconnect();
+    }
     FirebaseAuth.instance.signOut();
   }
 }

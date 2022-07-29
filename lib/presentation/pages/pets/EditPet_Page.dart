@@ -78,7 +78,7 @@ class _EditMyPetPageState extends State<EditMyPetPage> {
     var collection = FirebaseFirestore.instance.collection('Pet');
     var querySnapshot = await collection.get();
     for (var queryDocumentSnapshot in querySnapshot.docs) {
-      print(queryDocumentSnapshot.id + "-" + widget.petId);
+      // print(queryDocumentSnapshot.id + "-" + widget.petId);
       if (queryDocumentSnapshot.id == widget.petId) {
         Map<String, dynamic> data = queryDocumentSnapshot.data();
         Timestamp t = data['PetBornDate'];
