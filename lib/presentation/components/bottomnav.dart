@@ -62,7 +62,7 @@ class _BottomNavState extends State<BottomNav> {
               Icons.folder_rounded,
               color: secondaryColor,
             ),
-            label: "Mi cuenta",
+            label: "Registros",
           ),
           NavigationDestination(
             icon: Icon(
