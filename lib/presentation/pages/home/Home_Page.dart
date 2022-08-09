@@ -7,8 +7,8 @@ import 'package:vetmed_app/presentation/components/bottomnav.dart';
 import 'package:vetmed_app/provider/google_sign_in.dart';
 import '../../../domain/entities/Clinic.dart';
 import '../../../domain/entities/VeterinaryDoctor.dart';
+import '../../../utils/colors.dart';
 import '../../widgets/main_widgets.dart';
-import '../authentication/Login_Page.dart';
 import '../home/widgets/home_widgets.dart';
 
 class HomePage extends StatelessWidget {
@@ -32,20 +32,19 @@ class HomePage extends StatelessWidget {
       .map((snapshot) =>
           snapshot.docs.map((doc) => PetOwner.fromJson(doc.data())).toList());
 
+  // user = FirebaseAuth.instance.currentUser;
+  Future<PetOwner?> readPetOwner() async {
+    final docUser =
+    FirebaseFirestore.instance.collection('PetOwner').doc(FirebaseAuth.instance.currentUser?.uid);
+    final snapshot = await docUser.get();
+    if (snapshot.exists) {
+      return PetOwner.fromJson(snapshot.data()!);
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-    final FirebaseAuth userfinal = FirebaseAuth.instance;
-    Future<PetOwner?> readPetOwner() async {
-      final docUser =
-          FirebaseFirestore.instance.collection('PetOwner').doc(user?.uid);
-      final snapshot = await docUser.get();
-      if (snapshot.exists) {
-        return PetOwner.fromJson(snapshot.data()!);
-      }
-    }
 
-    //
+
     // final String? name = user?.displayName;
     // final String? email = user?.email;
     // final String? photoUrl = user?.photoURL;
@@ -75,6 +74,7 @@ class HomePage extends StatelessWidget {
                   FutureBuilder<PetOwner?>(
                       future: readPetOwner(),
                       builder: (context, snapshot) {
+                        print("data:" + snapshot.hasData.toString());
                         if (snapshot.hasData) {
                           final user = snapshot.data;
                           return user == null
@@ -194,6 +194,7 @@ class HomePage extends StatelessWidget {
                           context,
                           listen: false);
                       provider.logout();
+                      Navigator.of(context).pushNamed('/LoginPage');
                     },
                     child: Text('logout'),
                   ),
@@ -205,7 +206,9 @@ class HomePage extends StatelessWidget {
               child: Text('Algo salio mal!'),
             );
           } else {
-            return LoginPage();
+            return Center(
+              child: Text('Cargando!'),
+            );
           }
         },
       ),

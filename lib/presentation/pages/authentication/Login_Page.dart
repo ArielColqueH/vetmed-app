@@ -151,5 +151,24 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  void _showActionSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      backgroundColor: primaryColor,
+      duration: const Duration(milliseconds: 3000),
+      content: const Text(
+        "Se creo tu cuenta con exito",
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      action: SnackBarAction(
+        textColor: Colors.white,
+        onPressed: () {
+          Navigator.of(context).pushNamed('/MyPetsPage');
+        },
+        label: 'Ok',
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 }
 

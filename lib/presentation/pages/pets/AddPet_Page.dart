@@ -303,7 +303,6 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
                   );
                   Navigator.of(context).pushNamed('/MyPetsPage');
                   _showActionSnackBar(context);
-
                 },
               ),
               buildProgress(),
@@ -383,14 +382,18 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
     // if(){
     //   Navigator.of(context).pushNamed('/MyPetsPage');
     // }
-
   }
 
   void _showActionSnackBar(BuildContext context) {
     final snackBar = SnackBar(
-      duration: const Duration(milliseconds: 10000),
-      content: const Text("Se agrego mascota a tu registro"),
+      backgroundColor: primaryColor,
+      duration: const Duration(milliseconds: 3000),
+      content: const Text(
+        "Se agrego mascota a tu registro",
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
       action: SnackBarAction(
+        textColor: Colors.white,
         onPressed: () {
           Navigator.of(context).pushNamed('/MyPetsPage');
         },

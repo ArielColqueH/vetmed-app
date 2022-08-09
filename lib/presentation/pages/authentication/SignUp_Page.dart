@@ -89,6 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
               onPressed: () {
                 _signUp();
                 Navigator.of(context).pushNamed('/HomePage');
+                _showActionSnackBar(context);
               },
             ),
             const SizedBox(
@@ -144,7 +145,8 @@ class _SignUpPageState extends State<SignUpPage> {
       );
       final user = FirebaseAuth.instance.currentUser;
       final String? uid = user?.uid;
-      final docUser = FirebaseFirestore.instance.collection('PetOwner').doc(uid);
+      final docUser =
+          FirebaseFirestore.instance.collection('PetOwner').doc(uid);
       final json = {
         'Email': _emailTextController.text,
         'Password': _passwordTextController.text,
@@ -158,5 +160,24 @@ class _SignUpPageState extends State<SignUpPage> {
         loading = false;
       });
     }
+  }
+
+  void _showActionSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      backgroundColor: primaryColor,
+      duration: const Duration(milliseconds: 3000),
+      content: const Text(
+        "Se creo tu cuenta con exito",
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      action: SnackBarAction(
+        textColor: Colors.white,
+        onPressed: () {
+          Navigator.of(context).pushNamed('/MyPetsPage');
+        },
+        label: 'Ok',
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
