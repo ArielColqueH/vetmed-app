@@ -50,21 +50,27 @@ class MyPetsPage extends StatelessWidget {
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemCount: petLists.length,
-                        itemBuilder: (context, index) => PetCardItem(
-                          petSex: '${petLists[index].petGender}',
-                          petName:
-                              '${petLists[index].petName} ${petLists[index].petLastname}',
-                          petBreed: '${petLists[index].petBreed}',
-                          petLifetime: '7 years',
-                          petPhoto: '${petLists[index].petPhoto}',
-                          onPressed: () {
-                            // print(petLists[index].petId);
-                            Navigator.of(context).pushNamed(
-                              '/MyPetProfilePage',
-                              arguments: petLists[index].petId,
-                            );
-                          },
-                        ),
+                        itemBuilder: (context, index) => petLists.length != 0
+                            ? PetCardItem(
+                                petSex: '${petLists[index].petGender}',
+                                petName:
+                                    '${petLists[index].petName} ${petLists[index].petLastname}',
+                                petBreed: '${petLists[index].petBreed}',
+                                petLifetime:
+                                    '${petYears(petLists[index].petBornDate)}',
+                                petPhoto: '${petLists[index].petPhoto}',
+                                onPressed: () {
+                                  // print(petLists[index].petId);
+                                  Navigator.of(context).pushNamed(
+                                    '/MyPetProfilePage',
+                                    arguments: petLists[index].petId,
+                                  );
+                                },
+                              )
+                            : Center(
+                                child:
+                                    Text("No tienes mascotas registradas aún"),
+                              ),
                       );
                     } else {
                       return Center(
@@ -88,5 +94,29 @@ class MyPetsPage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNav(index: 1),
     );
+  }
+
+  String petYears(petBornDate) {
+    String bornDate = petBornDate.toString().split(" ")[0];
+    List<String>? datedata = bornDate.split("-");
+    DateTime date1 = DateTime(
+        int.parse(datedata[0]), int.parse(datedata[1]), int.parse(datedata[2]));
+    DateTime date2 = DateTime.now();
+    int difference = daysBetween(date1, date2);
+    int years = (difference / 365).floor();
+    // print("years" + years.toString());
+    String value = "";
+    if (years != 0) {
+      value = years.toString() + " años";
+    } else {
+      value = difference.toString() + " dias";
+    }
+    return value;
+  }
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
   }
 }

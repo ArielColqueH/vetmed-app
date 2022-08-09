@@ -117,23 +117,31 @@ class HomePage extends StatelessWidget {
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               itemCount: clinicLists.length,
-                              itemBuilder: (context, index) => ClinicItem(
-                                clinicStars:
-                                    clinicLists[index].clinicAveragePoints!,
-                                clinicLocation:
-                                    "${clinicLists[index].clinicLocation}",
-                                clinicName: "${clinicLists[index].clinicName}",
-                                clinicPricing:
-                                    clinicLists[index].clinicAverageCost!,
-                                clinicImage:
-                                    "${clinicLists[index].clinicPhoto}",
-                                clinicAttention:
-                                    clinicLists[index].numberOfClients!,
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed('/ClinicProfilePage');
-                                },
-                              ),
+                              itemBuilder: (context, index) => clinicLists
+                                          .length !=
+                                      0
+                                  ? ClinicItem(
+                                      clinicStars: clinicLists[index]
+                                          .clinicAveragePoints!,
+                                      clinicLocation:
+                                          "${clinicLists[index].clinicLocation}",
+                                      clinicName:
+                                          "${clinicLists[index].clinicName}",
+                                      clinicPricing:
+                                          clinicLists[index].clinicAverageCost!,
+                                      clinicImage:
+                                          "${clinicLists[index].clinicPhoto}",
+                                      clinicAttention:
+                                          clinicLists[index].numberOfClients!,
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/ClinicProfilePage');
+                                      },
+                                    )
+                                  : Center(
+                                      child: Text(
+                                          "No hay clinicas registradas aun"),
+                                    ),
                             );
                           } else {
                             return Center(
@@ -205,12 +213,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Future signOut() async {
-  //   try {
-  //     return await userfinal.signOut();
-  //   } catch (e) {
-  //     print(e.toString());
-  //     return null;
-  //   }
-  // }
+// Future signOut() async {
+//   try {
+//     return await userfinal.signOut();
+//   } catch (e) {
+//     print(e.toString());
+//     return null;
+//   }
+// }
 }

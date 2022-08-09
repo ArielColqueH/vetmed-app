@@ -290,7 +290,7 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
                   final petMicrochip = _microchipPetTextController.text;
                   final petBorn = Timestamp.fromDate(dateToday);
                   final petWeight = _weightPetTextController.text;
-                  createPet(
+                  await createPet(
                     petname: petName,
                     petlastname: petLastname,
                     petinfo: petInfo,
@@ -301,6 +301,9 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
                     petgender: petGender,
                     petphoto: petPhoto,
                   );
+                  Navigator.of(context).pushNamed('/MyPetsPage');
+                  _showActionSnackBar(context);
+
                 },
               ),
               buildProgress(),
@@ -377,5 +380,23 @@ class _AddMyPetPageState extends State<AddMyPetPage> {
       'PetPhoto': petphoto,
     };
     await docUser.set(json);
+    // if(){
+    //   Navigator.of(context).pushNamed('/MyPetsPage');
+    // }
+
+  }
+
+  void _showActionSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      duration: const Duration(milliseconds: 10000),
+      content: const Text("Se agrego mascota a tu registro"),
+      action: SnackBarAction(
+        onPressed: () {
+          Navigator.of(context).pushNamed('/MyPetsPage');
+        },
+        label: 'Ok',
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
